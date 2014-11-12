@@ -50,7 +50,7 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToScreen5" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToScreen5" text="Excluir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#goToScreen4" text="Listar" />
                </items>
@@ -81,13 +81,13 @@
                </font>
             </Label>
            
-            <Text layoutX="237.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar Partidas">
+            <Text layoutX="237.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar Partidas">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
             <Button layoutX="486.0" layoutY="482.0" mnemonicParsing="false" onAction="#salvarAction" text="Salvar" />
-            <TableView fx:id="table" layoutX="68.0" layoutY="191.0" prefHeight="251.0" prefWidth="501.0">
+            <TableView fx:id="table" layoutX="68.0" layoutY="193.0" prefHeight="251.0" prefWidth="501.0">
               <columns>
                 <TableColumn fx:id="colun1" prefWidth="250.0" text="Vencedor" />
                 <TableColumn fx:id="colun2" prefWidth="250.0" text="Tipo de Resultado" />
@@ -96,14 +96,19 @@
             <ComboBox fx:id="campeonatoBox" layoutX="181.0" layoutY="80.0" onAction="#comboBoxActionCampeonato" prefHeight="25.0" prefWidth="268.0" />
             <ComboBox fx:id="rodadaBox" disable="true" layoutX="181.0" layoutY="116.0" onAction="#comboboxActionRodada" prefHeight="25.0" prefWidth="268.0" />
             <TextField fx:id="vencedor" disable="true" layoutX="132.0" layoutY="453.0" />
-            <TextField fx:id="tpResultado" disable="true" layoutX="399.0" layoutY="451.0" />
             <Label layoutX="68.0" layoutY="460.0" prefHeight="17.0" prefWidth="64.0" text="Vencedor:" />
             <Label layoutX="294.0" layoutY="455.0" text="Tipo de Resultado:" />
-            <Label layoutX="68.0" layoutY="159.0" text="Selecione a partida:">
+            <Label layoutX="68.0" layoutY="168.0" text="Selecione a partida:">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
+            <Label fx:id="falha" layoutX="71.0" layoutY="145.0" text="Nenhuma partida selecionada" textFill="#e81010" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="tipoResultado" disable="true" layoutX="402.0" layoutY="451.0" onAction="#tipoResultadoAction" prefHeight="25.0" prefWidth="163.0" />
           
          </children>
       </Pane>

@@ -16,7 +16,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import mystical.controllerDAO.CampeonatoDAO;
 import mystical.controllerDAO.PartidaDAO;
@@ -90,6 +89,7 @@ public class ExcluirPartidasController implements Initializable, ControlledScree
 
        if (campeonatoBox.getValue() != null) {
 
+           
             ObservableList<Rodada> listRodada
                     = FXCollections.observableArrayList(rodadaDAO.findAllById(
                                     campeonatoBox.getValue().getIdCampeonato()));
@@ -104,10 +104,10 @@ public class ExcluirPartidasController implements Initializable, ControlledScree
     
     @FXML
     private void clear(){
-        table.getSelectionModel().select(null);
+        
         campeonatoBox.getSelectionModel().clearSelection();
         rodadaBox.getSelectionModel().clearSelection();
-        sucesso.setVisible(true);
+       // sucesso.setVisible(true);
         
     }
 
@@ -140,19 +140,24 @@ public class ExcluirPartidasController implements Initializable, ControlledScree
         atualizaTabela();
 
     }
-    
+    @FXML
+    private void limparAction(){
+        
+    }
     @FXML 
     private void excluirAction(){
-        if(partida!=null&&(data!=null || !data.isEmpty())){
+        if (table.getSelectionModel().getSelectedItem() != null){
             dao.delete(partida);
             System.out.println("Excluir");
             atualizaTabela();
-            sucesso.setVisible(true);
             clear();
+            sucesso.setVisible(true);
         }
         else{
             System.out.println("Selecione Partida");
+            sucesso.setVisible(false);
             falha.setVisible(true);
+            
         }
     }
 }

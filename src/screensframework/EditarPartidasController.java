@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -23,7 +24,7 @@ import mystical.model.Rodada;
 /**
  * FXML Controller class
  *
- * @author Angie
+ * @author Danielli
  */
 public class EditarPartidasController implements Initializable, ControlledScreen {
 
@@ -42,18 +43,28 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     @FXML
     TableColumn colun2;
     ScreensController myController;
+    
     @FXML
     TextField vencedor;
+    
     @FXML
     ComboBox<Rodada> rodadaBox;
+    
     @FXML
     ComboBox<Campeonato> campeonatoBox;
+    
+   
+    
     @FXML
-    TextField tpResultado;
+    ComboBox<String> tipoResultado;
+    
+    @FXML
+    Label falha;
+    
     private Rodada rodadaPai;
     private int idPartida;
     ObservableList<Partida> data;
-    //ObservableList<String> listRodada = FXCollections.observableArrayList("Rodada-1", "Rodada-2", "Rodada-3"); 
+    ObservableList<String> tipoResultadoList = FXCollections.observableArrayList("Empate", "Vitória"); 
     //ObservableList<String> listCampeonato = FXCollections.observableArrayList("Campeonato-1", "Campeonato-2", "Campeonato-3");
     /**
      * Initializes the controller class.
@@ -62,6 +73,7 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     public void initialize(URL url, ResourceBundle rb) {
         // rodadaBox.setItems(listRodada);
         campeonatoBox.setItems(listCampeonato);
+        tipoResultado.setItems(tipoResultadoList);
 
     }
 
@@ -92,7 +104,7 @@ public class EditarPartidasController implements Initializable, ControlledScreen
 
     @FXML
     private void clear() {
-        tpResultado.clear();
+        tipoResultado.getSelectionModel().clearSelection();
         vencedor.clear();
        // campeonatoBox.getSelectionModel().clearSelection();
         // rodadaBox.getSelectionModel().clearSelection();
@@ -116,6 +128,7 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     public void comboBoxActionCampeonato() {
 
         atualizaRodada();
+        falha.setVisible(false);
 
     }
 
@@ -132,10 +145,11 @@ public class EditarPartidasController implements Initializable, ControlledScreen
                 //Check whether item is selected and set value of selected item to Label
                 if (table.getSelectionModel().getSelectedItem() != null) {
 
+                    falha.setVisible(false);
                     vencedor.setDisable(false);
-                    tpResultado.setDisable(false);
+                    tipoResultado.setDisable(false);
                     vencedor.setText(newValue.getVencedor());
-                    tpResultado.setText(newValue.getTipoResultado());
+                    tipoResultado.getSelectionModel().select(newValue.getTipoResultado());
                     idPartida = newValue.getIdPartida();
                     rodadaPai = newValue.getRodada();
                 }
@@ -143,35 +157,56 @@ public class EditarPartidasController implements Initializable, ControlledScreen
             });
         }
         else 
+            
             data.clear();
     }
 
     @FXML
     private void comboboxActionRodada() {
         atualizaTabela();
+        falha.setVisible(false);
+        vencedor.clear();
+        tipoResultado.getSelectionModel().clearSelection();
+        vencedor.setDisable(true);
+        tipoResultado.setDisable(true);
+          
 
     }
 
     @FXML
+    private void tipoResultadoAction(){
+        if(tipoResultado.getValue()=="Empate"){
+            vencedor.setText("Nenhum");
+            vencedor.setEditable(false);
+        }
+        else
+            vencedor.setEditable(true);
+    }
+    @FXML
     private void salvarAction(ActionEvent actionEvent) {
-        if ((vencedor.getText() == null || vencedor.getText().isEmpty()) && (tpResultado.getText()
-                == null || tpResultado.getText().isEmpty())) {
-            System.out.println("VOU FAZER UM LABEL");
+        
+        if ((vencedor.getText() == null || vencedor.getText().isEmpty())) {
+            falha.setVisible(true);
+            falha.setText("Por favor, selecione uma partida e preencha todos os campos abaixo");
+            
 
-        } else {
+        } 
+        else {
             //FAZER UPDATE aqui passando apenas os campos que não são nulos
             Partida novoObj = new Partida();
             novoObj.setIdPartida(idPartida);
-            novoObj.setTipoResultado(tpResultado.getText());
+            novoObj.setTipoResultado(tipoResultado.getValue());
             novoObj.setVencedor(vencedor.getText());
             novoObj.setRodada(rodadaPai);
 
             dao.update(novoObj);
-
+            atualizaTabela();
+             clear();
             System.out.println("Mensagem de Sucesso");
-        }
+            falha.setVisible(false);
+        
 
-        atualizaTabela();
-        clear();
+        }
+       
     }
-}
+ }

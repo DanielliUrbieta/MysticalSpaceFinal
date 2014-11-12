@@ -48,21 +48,24 @@ public class ListarPartidasController implements Initializable, ControlledScreen
     @FXML
     TableColumn colun3;
 
-    ObservableList<String> listEscolher = FXCollections.observableArrayList("Todas", "Campeonato", "Rodada");
+    //ObservableList<String> listEscolher = FXCollections.observableArrayList("Todas", "Campeonato", "Rodada");
+    ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
     ObservableList<Rodada> listRodada;
     ObservableList<Partida> data;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        escolher.setItems(listEscolher);
-        escolher.getSelectionModel().select("Todas");
+        //escolher.setItems(listEscolher);
+        //escolher.getSelectionModel().select("Todas");
         table.setEditable(true);
-        data = FXCollections.observableArrayList(
-                    dao.findAll()
-            );
-        table.setItems(data);
-        colun1.setCellValueFactory(new PropertyValueFactory<Partida, String>("idPartida"));
-        colun2.setCellValueFactory(new PropertyValueFactory<Partida, String>("vencedor"));
-        colun3.setCellValueFactory(new PropertyValueFactory<Partida, String>("tipoResultado"));
+       // data = FXCollections.observableArrayList(
+         //           dao.findAll()
+          //  );
+        //table.setItems(data);
+        campeonatoBox.setItems(listCampeonato);
+        
+//        colun1.setCellValueFactory(new PropertyValueFactory<Partida, String>("idPartida"));
+//        colun2.setCellValueFactory(new PropertyValueFactory<Partida, String>("vencedor"));
+//        colun3.setCellValueFactory(new PropertyValueFactory<Partida, String>("tipoResultado"));
 
     }
 
@@ -102,8 +105,8 @@ public class ListarPartidasController implements Initializable, ControlledScreen
 
     @FXML
     private void campeonatoBoxAction() {
-        if (escolher.getValue() == "Rodada") {
-            rodadaBox.getSelectionModel().clearSelection();
+        
+           
             
             if (campeonatoBox.getValue() != null && !campeonatoBox.getValue().toString().isEmpty()) {
                  listRodada = FXCollections.observableArrayList(rodadaDAO.findAllById(
@@ -114,7 +117,7 @@ public class ListarPartidasController implements Initializable, ControlledScreen
             } else {
                 System.out.println("Nao deu");
             }
-        }
+        
     }
 
     private void atualizaTabela() {
@@ -133,11 +136,13 @@ public class ListarPartidasController implements Initializable, ControlledScreen
     
     @FXML
     private void rodadaBoxAction() {
-        if (escolher.getValue() == "Rodada") {
+       
 
              atualizaTabela();
-        }
-
+        
+        
     }
+    
+    
 
 }

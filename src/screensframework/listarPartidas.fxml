@@ -50,7 +50,7 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#goToScreen3" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToScreen5"  />
+                  <MenuItem mnemonicParsing="false" onAction="#goToScreen5" text="Excluir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Listar" />
                </items>
@@ -70,11 +70,6 @@
     </MenuBar>
       <Pane prefHeight="561.0" prefWidth="640.0">
          <children>
-            <Text layoutX="101.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buscar partida por :">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
             <TableView fx:id="table" layoutX="91.0" layoutY="158.0" prefHeight="381.0" prefWidth="458.0">
               <columns>
                 <TableColumn fx:id="colun1" prefWidth="111.0" text="Identificador" />
@@ -82,8 +77,8 @@
                 <TableColumn fx:id="colun3" prefWidth="146.0" text="Tipo Resultado" />
               </columns>
             </TableView>
-            <ComboBox fx:id="escolher" layoutX="267.0" layoutY="25.0" onAction="#escolherAction" prefHeight="25.0" prefWidth="191.0" />
-            <ComboBox fx:id="campeonatoBox" disable="true" layoutX="267.0" layoutY="72.0" onAction="#campeonatoBoxAction" prefHeight="25.0" prefWidth="191.0" />
+            <ComboBox fx:id="escolher" layoutX="267.0" layoutY="25.0" onAction="#escolherAction" prefHeight="25.0" prefWidth="191.0" visible="false" />
+            <ComboBox fx:id="campeonatoBox" layoutX="267.0" layoutY="72.0" onAction="#campeonatoBoxAction" prefHeight="25.0" prefWidth="191.0" />
             <ComboBox fx:id="rodadaBox" disable="true" layoutX="267.0" layoutY="113.0" onAction="#rodadaBoxAction" prefHeight="25.0" prefWidth="191.0" />
             <Label layoutX="101.0" layoutY="76.0" text="Selecione o campeonato:">
                <font>
@@ -93,6 +88,11 @@
             <Label layoutX="101.0" layoutY="116.0" text="Selecione a rodada:">
                <font>
                   <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="101.0" layoutY="37.0" text="Listar Partidas">
+               <font>
+                  <Font size="20.0" />
                </font>
             </Label>
          </children>

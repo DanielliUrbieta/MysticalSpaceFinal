@@ -23,7 +23,7 @@ import mystical.model.Rodada;
 /**
  * FXML Controller class
  *
- * @author Angie
+ * @author Danielli
  */
 public class AdicionarPartidasController implements Initializable, ControlledScreen {
 
@@ -97,7 +97,8 @@ public class AdicionarPartidasController implements Initializable, ControlledScr
         tipoResultado.setDisable(true);
         camposIncompletos.setVisible(false);
         vencedor.setEditable(false);
-
+        sucesso.setVisible(false);
+       
     }
 
     @FXML
@@ -113,10 +114,10 @@ public class AdicionarPartidasController implements Initializable, ControlledScr
             novaPartida.setTipoResultado(tipoResultado.getValue());
             novaPartida.setVencedor(vencedor.getText());
             partidaDAO.save(novaPartida);
-            sucesso.setVisible(true);
+           
             camposIncompletos.setVisible(false);
             clear();    
-            
+            sucesso.setVisible(true);
         }
         else{
             
@@ -136,6 +137,7 @@ public class AdicionarPartidasController implements Initializable, ControlledScr
                                 campeonatoBox.getValue().getIdCampeonato()));
         rodadaBox.setDisable(false);
         rodadaBox.setItems(listRodada);
+        sucesso.setVisible(false);
         }
 
     }

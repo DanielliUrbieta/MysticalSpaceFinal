@@ -8,7 +8,7 @@
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">duvidas</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
-    <property name="hibernate.show_sql">true</property>
+    <property name="hibernate.show_sql">false</property>
     <mapping class="mystical.model.Campeonato"/>
     <mapping class="mystical.model.Partida"/>
     <mapping class="mystical.model.Rodada"/>
