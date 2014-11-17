@@ -1,4 +1,3 @@
-
 package screensframework;
 
 import java.net.URL;
@@ -18,7 +17,6 @@ import mystical.controllerDAO.RodadaDAO;
 import mystical.model.Campeonato;
 import mystical.model.Partida;
 import mystical.model.Rodada;
-
 
 /**
  * FXML Controller class
@@ -40,24 +38,45 @@ public class AdicionarPartidasController implements Initializable, ControlledScr
     Label camposIncompletos;
     @FXML
     ComboBox<String> tipoResultado;
-    
 
     private final CampeonatoDAO campDAO = new CampeonatoDAO();
     private final RodadaDAO rodadaDAO = new RodadaDAO();
     private final PartidaDAO partidaDAO = new PartidaDAO();
-
-    //ObservableList<String> listRodada = FXCollections.observableArrayList("Rodada-1", "Rodada-2", "Rodada-3"); 
-    ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
-    ObservableList<String> listTpResultado = FXCollections.observableArrayList("Empate", "Vitória");
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
+        listarCampeonatos();
+        listarTipoResultado();
+
+    }
+
+    public void listarCampeonatos() {
+
+        ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
         campeonatoBox.setItems(listCampeonato);
+
+    }
+
+    public void listarTipoResultado() {
+
+        ObservableList<String> listTpResultado = FXCollections.observableArrayList("Empate", "Vitória");
         tipoResultado.setItems(listTpResultado);
+
+    }
+
+    public void listarRodada() {
+        ObservableList<Rodada> listRodada
+                = FXCollections.observableArrayList(rodadaDAO.findAllById(
+                                campeonatoBox.getValue().getIdCampeonato()));
+
+        rodadaBox.setDisable(false);
+        rodadaBox.setItems(listRodada);
+        sucesso.setVisible(false);
+
     }
 
     public void setScreenParent(ScreensController screenParent) {
@@ -78,16 +97,15 @@ public class AdicionarPartidasController implements Initializable, ControlledScr
     private void goToScreen4(ActionEvent event) {
         myController.setScreen(Main.listar);
     }
-    
+
     @FXML
-    private void goToScreen5(ActionEvent event){
+    private void goToScreen5(ActionEvent event) {
         myController.setScreen(Main.excluir);
     }
 
     @FXML
     public void clear() {
-       
-        
+
         vencedor.clear();
         campeonatoBox.getSelectionModel().clearSelection();
         rodadaBox.getSelectionModel().clearSelection();
@@ -98,46 +116,38 @@ public class AdicionarPartidasController implements Initializable, ControlledScr
         camposIncompletos.setVisible(false);
         vencedor.setEditable(false);
         sucesso.setVisible(false);
-       
+
     }
 
     @FXML
     public void salvarPartida(ActionEvent actionEvent) {
-        
-        
-        if (campeonatoBox.getValue() != null && !campeonatoBox.getValue().toString().isEmpty() &&
-            rodadaBox.getValue() != null && !rodadaBox.getValue().toString().isEmpty() &&
-            vencedor.getText() != null && !vencedor.getText().toString().isEmpty() &&
-            tipoResultado.getValue() != null && !tipoResultado.getValue().toString().isEmpty()) { 
+
+        if (campeonatoBox.getValue() != null && !campeonatoBox.getValue().toString().isEmpty()
+                && rodadaBox.getValue() != null && !rodadaBox.getValue().toString().isEmpty()
+                && vencedor.getText() != null && !vencedor.getText().toString().isEmpty()
+                && tipoResultado.getValue() != null && !tipoResultado.getValue().toString().isEmpty()) {
             Partida novaPartida = new Partida();
             novaPartida.setRodada(rodadaBox.getValue());
             novaPartida.setTipoResultado(tipoResultado.getValue());
             novaPartida.setVencedor(vencedor.getText());
             partidaDAO.save(novaPartida);
-           
+
             camposIncompletos.setVisible(false);
-            clear();    
+            clear();
             sucesso.setVisible(true);
+        } else {
+
+            sucesso.setVisible(false);
+            camposIncompletos.setVisible(true);
         }
-        else{
-            
-             sucesso.setVisible(false);
-             camposIncompletos.setVisible(true);
-        }
-        
-        
-       
+
     }
 
     @FXML
     public void comboBoxActionCampeonato() {
-        if(campeonatoBox.getValue()!=null){
-        ObservableList<Rodada> listRodada
-                = FXCollections.observableArrayList(rodadaDAO.findAllById(
-                                campeonatoBox.getValue().getIdCampeonato()));
-        rodadaBox.setDisable(false);
-        rodadaBox.setItems(listRodada);
-        sucesso.setVisible(false);
+        if (campeonatoBox.getValue() != null) {
+
+            listarRodada();
         }
 
     }
@@ -149,19 +159,15 @@ public class AdicionarPartidasController implements Initializable, ControlledScr
 
     @FXML
     public void comboBoxActiontResultado() {
-        if("Empate".equals(tipoResultado.getValue())){
-           vencedor.setText("Nenhum");
-           vencedor.setEditable(false);
-           vencedor.setDisable(false);
-        }
-        else{
+        if ("Empate".equals(tipoResultado.getValue())) {
+            vencedor.setText("Nenhum");
+            vencedor.setEditable(false);
+            vencedor.setDisable(false);
+        } else {
             vencedor.setText(null);
             vencedor.setDisable(false);
             vencedor.setEditable(true);
         }
     }
-    
-    
-    
 
 }

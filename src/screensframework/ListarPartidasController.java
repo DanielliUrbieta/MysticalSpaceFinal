@@ -37,8 +37,7 @@ public class ListarPartidasController implements Initializable, ControlledScreen
 
     @FXML
     TableView<Partida> table;
-    
-   
+
     @FXML
     TableColumn colun1;
 
@@ -49,24 +48,31 @@ public class ListarPartidasController implements Initializable, ControlledScreen
     TableColumn colun3;
 
     //ObservableList<String> listEscolher = FXCollections.observableArrayList("Todas", "Campeonato", "Rodada");
-    ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
     ObservableList<Rodada> listRodada;
     ObservableList<Partida> data;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //escolher.setItems(listEscolher);
-        //escolher.getSelectionModel().select("Todas");
-        table.setEditable(true);
-       // data = FXCollections.observableArrayList(
-         //           dao.findAll()
-          //  );
-        //table.setItems(data);
-        campeonatoBox.setItems(listCampeonato);
-        
-//        colun1.setCellValueFactory(new PropertyValueFactory<Partida, String>("idPartida"));
-//        colun2.setCellValueFactory(new PropertyValueFactory<Partida, String>("vencedor"));
-//        colun3.setCellValueFactory(new PropertyValueFactory<Partida, String>("tipoResultado"));
 
+        table.setEditable(true);
+
+        listarCampeonatos();
+
+    }
+
+    public void listarCampeonatos() {
+
+        ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
+        campeonatoBox.setItems(listCampeonato);
+    }
+
+    public void listarRodadas() {
+
+        listRodada = FXCollections.observableArrayList(rodadaDAO.findAllById(
+                campeonatoBox.getValue().getIdCampeonato()));
+
+        rodadaBox.setDisable(false);
+        rodadaBox.setItems(listRodada);
     }
 
     public void setScreenParent(ScreensController screenParent) {
@@ -88,36 +94,32 @@ public class ListarPartidasController implements Initializable, ControlledScreen
         myController.setScreen(Main.excluir);
     }
 
-    @FXML
-    private void escolherAction(ActionEvent event) {
-        if (escolher.getValue() == "Campeonato") {
-            ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
-            campeonatoBox.setItems(listCampeonato);
-            campeonatoBox.setDisable(false);
-            rodadaBox.getSelectionModel().clearSelection();
-            rodadaBox.setDisable(true);
-        } else if (escolher.getValue() == "Rodada") {
-            ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
-            campeonatoBox.setItems(listCampeonato);
-            campeonatoBox.setDisable(false);
-        }
-    }
+    /*
+     @FXML
+     private void escolherAction(ActionEvent event) {
+     if (escolher.getValue() == "Campeonato") {
+     ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
+     campeonatoBox.setItems(listCampeonato);
+     campeonatoBox.setDisable(false);
+     rodadaBox.getSelectionModel().clearSelection();
+     rodadaBox.setDisable(true);
+     } else if (escolher.getValue() == "Rodada") {
+     ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
+     campeonatoBox.setItems(listCampeonato);
+     campeonatoBox.setDisable(false);
+     }
+     }
 
+     */
     @FXML
     private void campeonatoBoxAction() {
-        
-           
-            
-            if (campeonatoBox.getValue() != null && !campeonatoBox.getValue().toString().isEmpty()) {
-                 listRodada = FXCollections.observableArrayList(rodadaDAO.findAllById(
-                                        campeonatoBox.getValue().getIdCampeonato()));
-                
-                rodadaBox.setDisable(false);
-                rodadaBox.setItems(listRodada);
-            } else {
-                System.out.println("Nao deu");
-            }
-        
+
+        if (campeonatoBox.getValue() != null && !campeonatoBox.getValue().toString().isEmpty()) {
+            listarRodadas();
+        } else {
+            System.out.println("Nao deu");
+        }
+
     }
 
     private void atualizaTabela() {
@@ -129,20 +131,16 @@ public class ListarPartidasController implements Initializable, ControlledScreen
             colun1.setCellValueFactory(new PropertyValueFactory<Partida, String>("idPartida"));
             colun2.setCellValueFactory(new PropertyValueFactory<Partida, String>("vencedor"));
             colun3.setCellValueFactory(new PropertyValueFactory<Partida, String>("tipoResultado"));
-        }
-        else 
+        } else {
             data.clear();
+        }
     }
-    
+
     @FXML
     private void rodadaBoxAction() {
-       
 
-             atualizaTabela();
-        
-        
+        atualizaTabela();
+
     }
-    
-    
 
 }

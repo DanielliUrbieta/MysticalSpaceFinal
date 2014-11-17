@@ -29,11 +29,10 @@ import mystical.model.Rodada;
 public class EditarPartidasController implements Initializable, ControlledScreen {
 
     PartidaDAO dao = new PartidaDAO();
-  
 
     private final CampeonatoDAO campDAO = new CampeonatoDAO();
     private final RodadaDAO rodadaDAO = new RodadaDAO();
-    ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
+
     @FXML
     TableView<Partida> table;
 
@@ -43,28 +42,26 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     @FXML
     TableColumn colun2;
     ScreensController myController;
-    
+
     @FXML
     TextField vencedor;
-    
+
     @FXML
     ComboBox<Rodada> rodadaBox;
-    
+
     @FXML
     ComboBox<Campeonato> campeonatoBox;
-    
-   
-    
+
     @FXML
     ComboBox<String> tipoResultado;
-    
+
     @FXML
     Label falha;
-    
+
     private Rodada rodadaPai;
     private int idPartida;
     ObservableList<Partida> data;
-    ObservableList<String> tipoResultadoList = FXCollections.observableArrayList("Empate", "Vitória"); 
+
     //ObservableList<String> listCampeonato = FXCollections.observableArrayList("Campeonato-1", "Campeonato-2", "Campeonato-3");
     /**
      * Initializes the controller class.
@@ -72,9 +69,21 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // rodadaBox.setItems(listRodada);
-        campeonatoBox.setItems(listCampeonato);
-        tipoResultado.setItems(tipoResultadoList);
+        listarCampeonatos();
+        listarTipoResultado();
 
+    }
+
+    public void listarCampeonatos() {
+
+        ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
+        campeonatoBox.setItems(listCampeonato);
+    }
+
+    public void listarTipoResultado() {
+
+        ObservableList<String> tipoResultadoList = FXCollections.observableArrayList("Empate", "Vitória");
+        tipoResultado.setItems(tipoResultadoList);
     }
 
     @Override
@@ -106,12 +115,12 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     private void clear() {
         tipoResultado.getSelectionModel().clearSelection();
         vencedor.clear();
-       // campeonatoBox.getSelectionModel().clearSelection();
+        // campeonatoBox.getSelectionModel().clearSelection();
         // rodadaBox.getSelectionModel().clearSelection();
     }
 
     @FXML
-    public void atualizaRodada() {
+    public void listarRodada() {
 
         if (campeonatoBox.getValue() != null) {
 
@@ -127,7 +136,7 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     @FXML
     public void comboBoxActionCampeonato() {
 
-        atualizaRodada();
+        listarRodada();
         falha.setVisible(false);
 
     }
@@ -135,7 +144,7 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     @FXML
     private void atualizaTabela() {
         if (rodadaBox.getValue() != null) {
-             data = FXCollections.observableArrayList(
+            data = FXCollections.observableArrayList(
                     dao.findAllById(rodadaBox.getValue().getIdRodada()));
             table.setEditable(true);
             table.setItems(data);
@@ -155,10 +164,9 @@ public class EditarPartidasController implements Initializable, ControlledScreen
                 }
 
             });
-        }
-        else 
-            
+        } else {
             data.clear();
+        }
     }
 
     @FXML
@@ -169,29 +177,27 @@ public class EditarPartidasController implements Initializable, ControlledScreen
         tipoResultado.getSelectionModel().clearSelection();
         vencedor.setDisable(true);
         tipoResultado.setDisable(true);
-          
 
     }
 
     @FXML
-    private void tipoResultadoAction(){
-        if(tipoResultado.getValue()=="Empate"){
+    private void tipoResultadoAction() {
+        if (tipoResultado.getValue() == "Empate") {
             vencedor.setText("Nenhum");
             vencedor.setEditable(false);
-        }
-        else
+        } else {
             vencedor.setEditable(true);
+        }
     }
+
     @FXML
     private void salvarAction(ActionEvent actionEvent) {
-        
+
         if ((vencedor.getText() == null || vencedor.getText().isEmpty())) {
             falha.setVisible(true);
             falha.setText("Por favor, selecione uma partida e preencha todos os campos abaixo");
-            
 
-        } 
-        else {
+        } else {
             //FAZER UPDATE aqui passando apenas os campos que não são nulos
             Partida novoObj = new Partida();
             novoObj.setIdPartida(idPartida);
@@ -201,12 +207,11 @@ public class EditarPartidasController implements Initializable, ControlledScreen
 
             dao.update(novoObj);
             atualizaTabela();
-             clear();
+            clear();
             System.out.println("Mensagem de Sucesso");
             falha.setVisible(false);
-        
 
         }
-       
+
     }
- }
+}

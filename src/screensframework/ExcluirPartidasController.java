@@ -36,7 +36,7 @@ public class ExcluirPartidasController implements Initializable, ControlledScree
 
     private final CampeonatoDAO campDAO = new CampeonatoDAO();
     private final RodadaDAO rodadaDAO = new RodadaDAO();
-    ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
+
     @FXML
     TableView<Partida> table;
 
@@ -60,8 +60,24 @@ public class ExcluirPartidasController implements Initializable, ControlledScree
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        campeonatoBox.setItems(listCampeonato);
+        listarCampeonatos();
 
+    }
+
+    public void listarCampeonatos() {
+
+        ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
+        campeonatoBox.setItems(listCampeonato);
+    }
+
+    public void listarRodadas() {
+
+        ObservableList<Rodada> listRodada
+                = FXCollections.observableArrayList(rodadaDAO.findAllById(
+                                campeonatoBox.getValue().getIdCampeonato()));
+
+        rodadaBox.setDisable(false);
+        rodadaBox.setItems(listRodada);
     }
 
     public void setScreenParent(ScreensController screenParent) {
@@ -83,32 +99,25 @@ public class ExcluirPartidasController implements Initializable, ControlledScree
         myController.setScreen(Main.listar);
     }
 
-    
     @FXML
     public void comboBoxActionCampeonato() {
 
-       if (campeonatoBox.getValue() != null) {
+        if (campeonatoBox.getValue() != null) {
 
-           
-            ObservableList<Rodada> listRodada
-                    = FXCollections.observableArrayList(rodadaDAO.findAllById(
-                                    campeonatoBox.getValue().getIdCampeonato()));
-
-            rodadaBox.setDisable(false);
-            rodadaBox.setItems(listRodada);
-        } 
-       falha.setVisible(false);
-       sucesso.setVisible(false);
+            listarRodadas();
+        }
+        falha.setVisible(false);
+        sucesso.setVisible(false);
 
     }
-    
+
     @FXML
-    private void clear(){
-        
+    private void clear() {
+
         campeonatoBox.getSelectionModel().clearSelection();
         rodadaBox.getSelectionModel().clearSelection();
        // sucesso.setVisible(true);
-        
+
     }
 
     @FXML
@@ -123,41 +132,42 @@ public class ExcluirPartidasController implements Initializable, ControlledScree
             colun3.setCellValueFactory(new PropertyValueFactory<Partida, String>("tipoResultado"));
             table.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue,
                     newValue) -> {
-                //Check whether item is selected and set value of selected item to Label
-                if (table.getSelectionModel().getSelectedItem() != null) {
+                        //Check whether item is selected and set value of selected item to Label
+                        if (table.getSelectionModel().getSelectedItem() != null) {
 
-                    partida = newValue;
-                }
+                            partida = newValue;
+                        }
 
-            });
-        }
-        else 
+                    });
+        } else {
             data.clear();
+        }
     }
-    
+
     @FXML
     private void comboboxActionRodada() {
         atualizaTabela();
 
     }
+
     @FXML
-    private void limparAction(){
-        
+    private void limparAction() {
+
     }
-    @FXML 
-    private void excluirAction(){
-        if (table.getSelectionModel().getSelectedItem() != null){
+
+    @FXML
+    private void excluirAction() {
+        if (table.getSelectionModel().getSelectedItem() != null) {
             dao.delete(partida);
             System.out.println("Excluir");
             atualizaTabela();
             clear();
             sucesso.setVisible(true);
-        }
-        else{
+        } else {
             System.out.println("Selecione Partida");
             sucesso.setVisible(false);
             falha.setVisible(true);
-            
+
         }
     }
 }
