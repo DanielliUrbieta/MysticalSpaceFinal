@@ -1,4 +1,4 @@
-package screensframework;
+package mystical.controller.Partida;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,6 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import mystical.controller.ControlledScreen;
+import mystical.controller.Main;
+import mystical.controller.ScreensController;
 import mystical.controllerDAO.CampeonatoDAO;
 import mystical.controllerDAO.PartidaDAO;
 import mystical.controllerDAO.RodadaDAO;
@@ -79,28 +82,46 @@ public class AdicionarPartidasController implements Initializable, ControlledScr
 
     }
 
+    @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
 
-    @FXML
-    private void goToScreen1(ActionEvent event) {
-        myController.setScreen(Main.home);
-    }
+    
 
     @FXML
-    private void goToScreen3(ActionEvent event) {
+    private void goToEditarPartida(ActionEvent event) {
         myController.setScreen(Main.editar);
     }
 
     @FXML
-    private void goToScreen4(ActionEvent event) {
+    private void goToListarPartida(ActionEvent event) {
         myController.setScreen(Main.listar);
     }
 
     @FXML
-    private void goToScreen5(ActionEvent event) {
+    private void goToExcluirPartida(ActionEvent event) {
         myController.setScreen(Main.excluir);
+    }
+    
+     @FXML
+    private void goToAdicionarRodada(ActionEvent event) {
+        myController.setScreen(Main.adicionarRodada);
+    }
+    
+     @FXML
+    private void goToExcluirRodada(ActionEvent event) {
+        myController.setScreen(Main.excluirRodada);
+    }
+    
+     @FXML
+    private void goToBuscarRodada(ActionEvent event) {
+        myController.setScreen(Main.buscarRodada);
+    }
+    
+    @FXML
+    private void goToEditarRodada(ActionEvent event) {
+        myController.setScreen(Main.editarRodada);
     }
 
     @FXML

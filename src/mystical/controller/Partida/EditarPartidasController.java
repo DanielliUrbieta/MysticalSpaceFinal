@@ -1,4 +1,4 @@
-package screensframework;
+package mystical.controller.Partida;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +14,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import mystical.controller.ControlledScreen;
+import mystical.controller.Main;
+import mystical.controller.ScreensController;
 import mystical.controllerDAO.CampeonatoDAO;
 import mystical.controllerDAO.PartidaDAO;
 import mystical.controllerDAO.RodadaDAO;
@@ -61,10 +64,14 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     private Rodada rodadaPai;
     private int idPartida;
     ObservableList<Partida> data;
+    @FXML
+    private ComboBox<?> tipoResultado1;
 
     //ObservableList<String> listCampeonato = FXCollections.observableArrayList("Campeonato-1", "Campeonato-2", "Campeonato-3");
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -91,7 +98,6 @@ public class EditarPartidasController implements Initializable, ControlledScreen
         myController = screenParent;
     }
 
-    @FXML
     private void goToScreen1(ActionEvent event) {
         myController.setScreen(Main.home);
     }
@@ -110,8 +116,24 @@ public class EditarPartidasController implements Initializable, ControlledScreen
     private void goToScreen5(ActionEvent event) {
         myController.setScreen(Main.excluir);
     }
-
     @FXML
+     private void goToAdicionarRodada(ActionEvent event){
+        myController.setScreen(Main.adicionarRodada);
+    }
+    @FXML
+    private void goToExcluirRodada(ActionEvent event){
+        myController.setScreen(Main.excluirRodada);
+    }
+    @FXML
+    private void goToListarRodada(ActionEvent event){
+        myController.setScreen(Main.buscarRodada);
+    }
+    
+     @FXML
+    private void goToEditarRodada(ActionEvent event) {
+        myController.setScreen(Main.editarRodada);
+    }
+
     private void clear() {
         tipoResultado.getSelectionModel().clearSelection();
         vencedor.clear();
@@ -119,7 +141,6 @@ public class EditarPartidasController implements Initializable, ControlledScreen
         // rodadaBox.getSelectionModel().clearSelection();
     }
 
-    @FXML
     public void listarRodada() {
 
         if (campeonatoBox.getValue() != null) {
@@ -141,7 +162,6 @@ public class EditarPartidasController implements Initializable, ControlledScreen
 
     }
 
-    @FXML
     private void atualizaTabela() {
         if (rodadaBox.getValue() != null) {
             data = FXCollections.observableArrayList(

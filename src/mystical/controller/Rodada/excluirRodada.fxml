@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
 
-<VBox prefHeight="586.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screensframework.ListarPartidasController">
+<VBox prefHeight="512.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.controller.Rodada.ExcluirRodadaController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -46,56 +46,49 @@
         </Menu>
             <Menu mnemonicParsing="false" text="Partidas">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#goToScreen2" text="Adicionar" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToAdicionarPartida" text="Adicionar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToScreen3" text="Editar" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToEditarPartida" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToScreen5" text="Excluir" />
+                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToExcluirPartida" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Listar" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToListarPartida" text="Listar" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Rodadas">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Listar" />
+                  <MenuItem mnemonicParsing="false" text="Listar" onAction="#goToBuscarRodada"  />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Excluir" />
+                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToExcluirRodada" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Editar" />
+                  <MenuItem mnemonicParsing="false" text="Editar" onAction="#goToEditarRodada" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Adicionar" />
+                  <MenuItem mnemonicParsing="false" text="Adicionar" onAction="#goToAdicionarRodada" />
                </items>
             </Menu>
+           
       </menus>
     </MenuBar>
-      <Pane prefHeight="561.0" prefWidth="640.0">
+      <Pane prefHeight="485.0" prefWidth="640.0">
          <children>
-            <TableView fx:id="table" layoutX="91.0" layoutY="158.0" prefHeight="381.0" prefWidth="458.0">
+            <Label layoutX="112.0" layoutY="42.0" text="Exclua uma Rodada">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="112.0" layoutY="94.0" text="Campeonato:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="258.0" layoutY="95.0" prefHeight="25.0" prefWidth="212.0" />
+            <TableView layoutX="118.0" layoutY="157.0" prefHeight="256.0" prefWidth="404.0">
               <columns>
-                <TableColumn fx:id="colun1" prefWidth="111.0" text="Identificador" />
-                <TableColumn fx:id="colun2" prefWidth="200.0" text="Vencedor" />
-                <TableColumn fx:id="colun3" prefWidth="146.0" text="Tipo Resultado" />
+                <TableColumn prefWidth="181.0" text="Número" />
+                <TableColumn prefWidth="222.0" text="Duração" />
               </columns>
             </TableView>
-            
-            <ComboBox fx:id="campeonatoBox" layoutX="267.0" layoutY="72.0" onAction="#campeonatoBoxAction" prefHeight="25.0" prefWidth="191.0" />
-            <ComboBox fx:id="rodadaBox" disable="true" layoutX="267.0" layoutY="113.0" onAction="#rodadaBoxAction" prefHeight="25.0" prefWidth="191.0" />
-            <Label layoutX="101.0" layoutY="76.0" text="Selecione o campeonato:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="101.0" layoutY="116.0" text="Selecione a rodada:">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label layoutX="101.0" layoutY="37.0" text="Buscar Partidas">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
+            <Button layoutX="470.0" layoutY="429.0" mnemonicParsing="false" text="Excluir" />
+         </children></Pane>
   </children>
 </VBox>

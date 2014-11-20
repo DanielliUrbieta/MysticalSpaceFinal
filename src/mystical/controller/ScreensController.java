@@ -38,7 +38,7 @@
  * holder.
  */ 
 
-package screensframework;
+package mystical.controller;
 
 import java.util.HashMap;
 

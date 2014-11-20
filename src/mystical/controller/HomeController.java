@@ -1,5 +1,5 @@
 
-package screensframework;
+package mystical.controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,12 +18,15 @@ public class HomeController implements Initializable, ControlledScreen {
     ScreensController myController;
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }
     
+    @Override
     public void setScreenParent(ScreensController screenParent){
         myController = screenParent;
     }
@@ -46,5 +49,25 @@ public class HomeController implements Initializable, ControlledScreen {
     @FXML
     private void goToScreen5(ActionEvent event){
         myController.setScreen(Main.excluir);
+    }
+    
+    @FXML
+    private void goToAdicionarRodada(ActionEvent event){
+        myController.setScreen(Main.adicionarRodada);
+    }
+    
+    @FXML
+    private void goToExcluirRodada(ActionEvent event){
+        myController.setScreen(Main.excluirRodada);
+    }
+    
+    @FXML
+    private void goToBuscarRodada(ActionEvent event){
+        myController.setScreen(Main.buscarRodada);
+    }
+    
+     @FXML
+    private void goToEditarRodada(ActionEvent event) {
+        myController.setScreen(Main.editarRodada);
     }
 }

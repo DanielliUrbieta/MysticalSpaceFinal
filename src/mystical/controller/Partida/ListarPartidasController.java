@@ -1,4 +1,4 @@
-package screensframework;
+package mystical.controller.Partida;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,6 +13,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import mystical.controller.ControlledScreen;
+import mystical.controller.Main;
+import mystical.controller.ScreensController;
 import mystical.controllerDAO.CampeonatoDAO;
 import mystical.controllerDAO.PartidaDAO;
 import mystical.controllerDAO.RodadaDAO;
@@ -75,6 +78,7 @@ public class ListarPartidasController implements Initializable, ControlledScreen
         rodadaBox.setItems(listRodada);
     }
 
+    @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
@@ -93,7 +97,23 @@ public class ListarPartidasController implements Initializable, ControlledScreen
     private void goToScreen5(ActionEvent event) {
         myController.setScreen(Main.excluir);
     }
+    @FXML
+    private void goToAdicionarRodada(ActionEvent event) {
+        myController.setScreen(Main.adicionarRodada);
+    }
+    @FXML
+    private void goToExcluirRodada(ActionEvent event) {
+        myController.setScreen(Main.excluirRodada);
+    }
+    @FXML
+    private void goToListarRodada(ActionEvent event) {
+        myController.setScreen(Main.buscarRodada);
+    }
 
+     @FXML
+    private void goToEditarRodada(ActionEvent event) {
+        myController.setScreen(Main.editarRodada);
+    }
     /*
      @FXML
      private void escolherAction(ActionEvent event) {

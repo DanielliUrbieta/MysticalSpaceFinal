@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="537.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.controller.Partida.EditarPartidasController">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="Usuários">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Listar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Excluir" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Editar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Adicionar" />
+               </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Funcionários">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Listar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Excluir" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Editar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Adicionar" />
+               </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Campeonatos">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Adicionar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Listar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Excluir" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Editar" />
+          </items>
+        </Menu>
+            <Menu mnemonicParsing="false" text="Partidas">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#goToScreen2" text="Adicionar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Editar" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToScreen5" text="Excluir" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToScreen4" text="Listar" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Rodadas">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Listar" onAction="#goToListarRodada" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToExcluirRodada" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Editar" onAction="#goToEditarRodada" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Adicionar" onAction="#goToAdicionarRodada" />
+               </items>
+            </Menu>
+      </menus>
+    </MenuBar>
+      <Pane prefHeight="530.0" prefWidth="640.0">
+         <children>
+            <Label layoutX="71.0" layoutY="73.0" prefHeight="38.0" prefWidth="106.0" text="Campeonato:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="72.0" layoutY="118.0" prefHeight="21.0" prefWidth="70.0" text="Rodada:">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+           
+            <Text layoutX="237.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Editar Partidas">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Button layoutX="486.0" layoutY="482.0" mnemonicParsing="false" onAction="#salvarAction" text="Salvar" />
+            <TableView fx:id="table" layoutX="68.0" layoutY="193.0" prefHeight="251.0" prefWidth="501.0">
+              <columns>
+                <TableColumn fx:id="colun1" prefWidth="250.0" text="Vencedor" />
+                <TableColumn fx:id="colun2" prefWidth="250.0" text="Tipo de Resultado" />
+              </columns>
+            </TableView>
+            <ComboBox fx:id="campeonatoBox" layoutX="181.0" layoutY="80.0" onAction="#comboBoxActionCampeonato" prefHeight="25.0" prefWidth="268.0" />
+            <ComboBox fx:id="rodadaBox" disable="true" layoutX="181.0" layoutY="116.0" onAction="#comboboxActionRodada" prefHeight="25.0" prefWidth="268.0" />
+            <TextField fx:id="vencedor" disable="true" layoutX="132.0" layoutY="453.0" />
+            <Label layoutX="68.0" layoutY="460.0" prefHeight="17.0" prefWidth="64.0" text="Vencedor:" />
+            <Label layoutX="294.0" layoutY="455.0" text="Tipo de Resultado:" />
+            <Label layoutX="68.0" layoutY="168.0" text="Selecione a partida:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="falha" layoutX="71.0" layoutY="145.0" text="Nenhuma partida selecionada" textFill="#e81010" visible="false">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="tipoResultado" disable="true" layoutX="402.0" layoutY="451.0" onAction="#tipoResultadoAction" prefHeight="25.0" prefWidth="163.0" />
+          
+         </children>
+      </Pane>
+  </children>
+</VBox>

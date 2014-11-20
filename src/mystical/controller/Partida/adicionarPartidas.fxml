@@ -6,9 +6,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
-<?import validatorForm.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screensframework.AdicionarPartidasController">
+
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.controller.Partida.AdicionarPartidasController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -49,22 +49,22 @@
                <items>
                   <MenuItem mnemonicParsing="false" text="Adicionar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToScreen3" text="Editar" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToEditarPartida" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToScreen5" text="Excluir" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToExcluirPartida" text="Excluir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#goToScreen4" text="Listar" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToListarPartida" text="Listar" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Rodadas">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Listar" />
+                  <MenuItem mnemonicParsing="false" text="Listar" onAction="#goToBuscarRodada"  />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Excluir" />
+                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToExcluirRodada"/>
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Editar" />
+                  <MenuItem mnemonicParsing="false" text="Editar" onAction="#goToEditarRodada"   />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Adicionar" />
+                  <MenuItem mnemonicParsing="false" text="Adicionar" onAction="#goToAdicionarRodada"  />
                </items>
             </Menu>
       </menus>

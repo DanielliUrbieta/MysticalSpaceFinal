@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package screensframework;
+package mystical.controller.Partida;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,6 +17,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import mystical.controller.ControlledScreen;
+import mystical.controller.Main;
+import mystical.controller.ScreensController;
 import mystical.controllerDAO.CampeonatoDAO;
 import mystical.controllerDAO.PartidaDAO;
 import mystical.controllerDAO.RodadaDAO;
@@ -99,6 +102,24 @@ public class ExcluirPartidasController implements Initializable, ControlledScree
         myController.setScreen(Main.listar);
     }
 
+    @FXML
+     private void goToAdicionarRodada(ActionEvent event){
+        myController.setScreen(Main.adicionarRodada);
+    }
+    @FXML
+    private void goToExcluirRodada(ActionEvent event){
+        myController.setScreen(Main.excluirRodada);
+    }
+    @FXML
+    private void goToListarRodada(ActionEvent event){
+        myController.setScreen(Main.buscarRodada);
+    }
+    
+     @FXML
+    private void goToEditarRodada(ActionEvent event) {
+        myController.setScreen(Main.editarRodada);
+    }
+    
     @FXML
     public void comboBoxActionCampeonato() {
 
