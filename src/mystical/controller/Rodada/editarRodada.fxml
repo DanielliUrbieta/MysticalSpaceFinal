@@ -100,14 +100,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <ComboBox fx:id="tipoResultado" disable="true" layoutX="121.0" layoutY="425.0" onAction="#tipoResultadoAction" prefHeight="25.0" prefWidth="31.0" />
-            <Label layoutX="178.0" layoutY="424.0" prefHeight="27.0" prefWidth="10.0" text=":">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="tipoResultado1" disable="true" layoutX="188.0" layoutY="425.0" onAction="#tipoResultadoAction" prefHeight="25.0" prefWidth="31.0" />
-          
+           
          </children>
       </Pane>
   </children>

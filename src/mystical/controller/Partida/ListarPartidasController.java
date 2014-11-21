@@ -142,7 +142,7 @@ public class ListarPartidasController implements Initializable, ControlledScreen
 
     }
 
-    private void atualizaTabela() {
+    private void listarPartidas() {
         if (rodadaBox.getValue() != null) {
             data = FXCollections.observableArrayList(
                     dao.findAllById(rodadaBox.getValue().getIdRodada()));
@@ -159,7 +159,7 @@ public class ListarPartidasController implements Initializable, ControlledScreen
     @FXML
     private void rodadaBoxAction() {
 
-        atualizaTabela();
+        listarPartidas();
 
     }
 

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="492.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.controller.Rodada.ListarRodadaController">
+<VBox prefHeight="553.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.controller.Rodada.ListarRodadaController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -46,7 +46,7 @@
         </Menu>
             <Menu mnemonicParsing="false" text="Partidas">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Adicionar" onAction="#goToAdicionarPartida" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToAdicionarPartida" text="Adicionar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#goToEditarPartida" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
@@ -57,27 +57,27 @@
             </Menu>
             <Menu mnemonicParsing="false" text="Rodadas">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Listar" onAction="#goToBuscarRodada"  />
+                  <MenuItem mnemonicParsing="false" onAction="#goToBuscarRodada" text="Listar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToExcluirRodada"  />
+                  <MenuItem mnemonicParsing="false" onAction="#goToExcluirRodada" text="Excluir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Editar"  onAction="#goToEditarRodada"  />
+                  <MenuItem mnemonicParsing="false" onAction="#goToEditarRodada" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Adicionar" onAction="#goToAdicionarRodada" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToAdicionarRodada" text="Adicionar" />
                </items>
             </Menu>
       </menus>
     </MenuBar>
-     <Pane prefHeight="465.0" prefWidth="640.0">
+     <Pane prefHeight="528.0" prefWidth="640.0">
          <children>
-            <TableView fx:id="table" layoutX="101.0" layoutY="106.0" prefHeight="335.0" prefWidth="458.0">
+            <TableView fx:id="table" layoutX="164.0" layoutY="108.0" prefHeight="396.0" prefWidth="307.0">
               <columns>
-                <TableColumn fx:id="colun2" prefWidth="200.0" text="Vencedor" />
-                <TableColumn fx:id="colun3" prefWidth="146.0" text="Tipo Resultado" />
+                <TableColumn fx:id="colun2" prefWidth="149.0" text="Número" />
+                <TableColumn fx:id="colun3" prefWidth="156.0" text="Duração" />
               </columns>
             </TableView>
             
-            <ComboBox fx:id="campeonatoBox" layoutX="314.0" layoutY="60.0"  prefHeight="25.0" prefWidth="197.0" />
+            <ComboBox fx:id="campeonatoBox" layoutX="314.0" layoutY="60.0" onAction="#campeonatoBoxAction" prefHeight="25.0" prefWidth="197.0" />
             <Label layoutX="101.0" layoutY="60.0" text="Selecione um campeonato:">
                <font>
                   <Font size="16.0" />
