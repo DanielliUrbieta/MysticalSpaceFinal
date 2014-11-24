@@ -77,7 +77,8 @@ public class AdicionarPartidasController implements Initializable, ControlledScr
                                 campeonatoBox.getValue().getIdCampeonato()));
 
         rodadaBox.setDisable(false);
-        rodadaBox.setItems(listRodada);
+        
+        rodadaBox.setItems(listRodada.sorted());
         sucesso.setVisible(false);
 
     }

@@ -50,20 +50,20 @@
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#goToEditarPartida" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToExcluirPartida" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToExcluirPartida" text="Excluir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#goToListarPartida" text="Listar" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Rodadas">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Listar" onAction="#goToBuscarRodada"  />
+                  <MenuItem mnemonicParsing="false" onAction="#goToBuscarRodada" text="Listar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToExcluirRodada" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToExcluirRodada" text="Excluir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Editar" onAction="#goToEditarRodada" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToEditarRodada" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Adicionar" onAction="#goToAdicionarRodada" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToAdicionarRodada" text="Adicionar" />
                </items>
             </Menu>
            
@@ -81,14 +81,16 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <ComboBox layoutX="258.0" layoutY="95.0" prefHeight="25.0" prefWidth="212.0" />
-            <TableView layoutX="118.0" layoutY="157.0" prefHeight="256.0" prefWidth="404.0">
+            <ComboBox fx:id="campeonatoBox" layoutX="258.0" layoutY="95.0" onAction="#atualizaTabela" prefHeight="25.0" prefWidth="212.0" />
+            <TableView fx:id="table" layoutX="118.0" layoutY="157.0" prefHeight="256.0" prefWidth="404.0">
               <columns>
-                <TableColumn prefWidth="181.0" text="Número" />
-                <TableColumn prefWidth="222.0" text="Duração" />
+                <TableColumn fx:id="colun1" prefWidth="181.0" text="Número" />
+                <TableColumn fx:id="colun2" prefWidth="222.0" text="Duração" />
               </columns>
             </TableView>
-            <Button layoutX="470.0" layoutY="429.0" mnemonicParsing="false" text="Excluir" />
+            <Button fx:id="excluir" layoutX="470.0" layoutY="429.0" mnemonicParsing="false" onAction="#excluirAction" text="Excluir" />
+            <Label fx:id="sucesso" layoutX="118.0" layoutY="73.0" text="Rodada excluída com sucesso!" textFill="#209e0f" />
+            <Label fx:id="falha" layoutX="118.0" layoutY="73.0" text="Erro ao excluir a rodada" textFill="#c91010" />
          </children></Pane>
   </children>
 </VBox>

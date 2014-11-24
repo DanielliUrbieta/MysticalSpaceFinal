@@ -131,4 +131,5 @@ public class ListarRodadaController implements Initializable, ControlledScreen {
         else 
             listRodada.clear();
     }
+    
 }

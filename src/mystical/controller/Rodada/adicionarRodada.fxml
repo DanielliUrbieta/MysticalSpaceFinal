@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="mystical.controller.Rodada.AdicionarRodadaController">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.controller.Rodada.AdicionarRodadaController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -46,24 +46,24 @@
         </Menu>
             <Menu mnemonicParsing="false" text="Partidas">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Adicionar" onAction="#goToAdicionarPartida" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToAdicionarPartida" text="Adicionar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Editar" onAction="#goToEditarPartida" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToEditarPartida" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToExcluirPartida" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToExcluirPartida" text="Excluir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Listar" onAction="#goToListarPartida" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToListarPartida" text="Listar" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Rodadas">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Listar" onAction="#goToBuscarRodada"  />
+                  <MenuItem mnemonicParsing="false" onAction="#goToBuscarRodada" text="Listar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Excluir" onAction="#goToExcluirRodada" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToExcluirRodada" text="Excluir" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Editar"  onAction="#goToEditarRodada" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToEditarRodada" text="Editar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Adicionar" onAction="#goToAdicionarRodada" />
+                  <MenuItem mnemonicParsing="false" onAction="#goToAdicionarRodada" text="Adicionar" />
                </items>
             </Menu>
            
@@ -71,37 +71,40 @@
     </MenuBar>
       <Pane prefHeight="375.0" prefWidth="640.0">
          <children>
-            <Label layoutX="91.0" layoutY="79.0" text="Campeonato:">
+            <Label layoutX="86.0" layoutY="79.0" text="Campeonato:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <ComboBox layoutX="212.0" layoutY="79.0" prefHeight="25.0" prefWidth="202.0" />
-            <Label layoutX="123.0" layoutY="113.0" text="Número:">
+            <ComboBox fx:id="campeonatoBox" layoutX="202.0" layoutY="79.0" onAction="#campeonatoBoxAction" prefHeight="25.0" prefWidth="202.0" />
+            <Label layoutX="120.0" layoutY="113.0" text="Número:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="91.0" layoutY="27.0" text="Adicione uma Rodada">
+            <Label layoutX="86.0" layoutY="27.0" text="Adicione uma Rodada">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="212.0" layoutY="113.0" prefHeight="25.0" prefWidth="202.0" />
+            <TextField fx:id="numeroRodada" disable="true" layoutX="202.0" layoutY="113.0" prefHeight="25.0" prefWidth="202.0" />
             <Label layoutX="122.0" layoutY="146.0" text="Duração:">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <ComboBox layoutX="212.0" layoutY="146.0" prefHeight="25.0" prefWidth="50.0" />
-            <ComboBox layoutX="288.0" layoutY="146.0" prefHeight="25.0" prefWidth="50.0" />
-            <Label layoutX="272.0" layoutY="141.0" text=":">
+            <ComboBox fx:id="horas" layoutX="204.0" layoutY="146.0" prefHeight="25.0" prefWidth="50.0" />
+            <ComboBox fx:id="minutos" layoutX="274.0" layoutY="146.0" prefHeight="25.0" prefWidth="50.0" />
+            <Label layoutX="260.0" layoutY="141.0" text=":">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Button layoutX="307.0" layoutY="214.0" mnemonicParsing="false" text="Salvar" />
-            <Button layoutX="366.0" layoutY="214.0" mnemonicParsing="false" text="Limpar" />
+            <Button layoutX="307.0" layoutY="214.0" mnemonicParsing="false" onAction="#salvarRodada" text="Salvar" />
+            <Button layoutX="366.0" layoutY="214.0" mnemonicParsing="false" onAction="#clear" text="Limpar" />
+            <Label fx:id="alertaNumeroRodada" layoutX="407.0" layoutY="117.0" text="*Por favor coloque um número válido" textFill="#e42222" />
+            <Label fx:id="sucesso" layoutX="87.0" layoutY="58.0" text="Rodada inserida com sucesso!" textFill="#0dab08" />
+            <Label fx:id="alertaCamposIncompletos" layoutX="86.0" layoutY="58.0" text="Por favor preencha todos os campos" textFill="#bc1e1e" />
          </children>
       </Pane>
   </children>
