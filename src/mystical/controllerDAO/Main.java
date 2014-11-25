@@ -121,7 +121,7 @@ public class Main {
        //salva a rodada -- ainda sem nenhuma partida
        
        rodadaDAO.save(rodada6);
-       */
+      
        
         PartidaDAO pDAO = new PartidaDAO();
         //System.out.println("estamos na main antes de instanciar a lista");
@@ -133,6 +133,11 @@ public class Main {
             System.out.println("olá moço");
         }
         
+         */
         
+        
+        RodadaDAO rDAO = new RodadaDAO();
+        if(rDAO.contemRodada(11, 6))
+        System.out.println("Sim");
     }
 }

@@ -6,12 +6,14 @@
 package mystical.controllerDAO;
 
 import java.util.List;
+import java.util.Map;
 import mystical.util.Conexao;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.transform.AliasToEntityMapResultTransformer;
 
 /**
  *
@@ -22,6 +24,7 @@ public abstract class AbstractDAO {
     protected Session session;
     protected Transaction tx;
     Boolean retorno = false;
+    protected SQLQuery queryGenerica;
 
     protected boolean save(Object obj) {
         session = Conexao.getSessionFactory().openSession();
@@ -103,41 +106,39 @@ public abstract class AbstractDAO {
     }
 
     /*--------------------------------
-    protected List findAllById(Class clazz, int id){
-        session = Conexao.getSessionFactory().openSession();
-        tx = session.beginTransaction();
+     protected List findAllById(Class clazz, int id){
+     session = Conexao.getSessionFactory().openSession();
+     tx = session.beginTransaction();
 
-        List objects = null;
-        try {
+     List objects = null;
+     try {
 
-            //Query sqlQuery = EntityManager.createNativeQuery("Select * from Books where author = ?", Partida.class);
-            //objects = sqlQuery.setParameter(1, "Charles Dickens").getResultList();
-            System.out.println("estamos ak antes");
-            //System.out.println(clazz.getField("rodada"));
-            //String hql = "FROM "+clazz.getName()+" as WHERE rodada_id_rodada = 6";
-            Query query = session.createSQLQuery("select * from PARTIDA where PARTIDA.rodada_id_rodada = 6").addEntity(Partida.class);
+     //Query sqlQuery = EntityManager.createNativeQuery("Select * from Books where author = ?", Partida.class);
+     //objects = sqlQuery.setParameter(1, "Charles Dickens").getResultList();
+     System.out.println("estamos ak antes");
+     //System.out.println(clazz.getField("rodada"));
+     //String hql = "FROM "+clazz.getName()+" as WHERE rodada_id_rodada = 6";
+     Query query = session.createSQLQuery("select * from PARTIDA where PARTIDA.rodada_id_rodada = 6").addEntity(Partida.class);
             
-            System.out.println("estamos ak no meio");
-            objects = query.list();
+     System.out.println("estamos ak no meio");
+     objects = query.list();
            
            
-            tx.commit();
+     tx.commit();
 
-            System.out.println("estamos ak depois");
-            retorno = true;
-        } catch (HibernateException e) {
-            tx.rollback();
-        } finally {
+     System.out.println("estamos ak depois");
+     retorno = true;
+     } catch (HibernateException e) {
+     tx.rollback();
+     } finally {
 
-            session.close();
+     session.close();
 
-        }
-        return objects;
-    }
+     }
+     return objects;
+     }
         
-    */
-    
-    
+     */
     protected List findAllById(int id, String q) {
         session = Conexao.getSessionFactory().openSession();
         tx = session.beginTransaction();
@@ -149,22 +150,20 @@ public abstract class AbstractDAO {
         } catch (HibernateException e) {
             tx.rollback();
         } finally {
-             
-                session.close();
-            
+
+            session.close();
+
         }
         return objects;
     }
-    
-    
-    
-    protected List findAllPartidasByCampeonato(String sql){
+
+    protected List findAllPartidasByCampeonato(String sql) {
         session = Conexao.getSessionFactory().openSession();
         tx = session.beginTransaction();
         List objects = null;
         try {
             System.out.println("estamos na abstract antes da query");
-            
+
             SQLQuery query = session.createSQLQuery(sql);
             objects = query.list();
             System.out.println("estamos na abstract depois da query");
@@ -172,9 +171,32 @@ public abstract class AbstractDAO {
         } catch (HibernateException e) {
             tx.rollback();
         } finally {
-             
-                session.close();
-            
+
+            session.close();
+
+        }
+        return objects;
+    }
+
+    protected List<Map<String, Object>> consultaGenerica(String consulta) {
+
+        session = Conexao.getSessionFactory().openSession();
+        tx = session.beginTransaction();
+        List <Map<String, Object>> objects = null;
+        try {
+            System.out.println("estamos na abstract antes da query");
+
+            SQLQuery query = session.createSQLQuery(consulta);
+            query.setResultTransformer(AliasToEntityMapResultTransformer.INSTANCE);
+            objects =(List<Map<String, Object>>) query.list();
+            System.out.println("estamos na abstract depois da query");
+            tx.commit();
+        } catch (HibernateException e) {
+            tx.rollback();
+        } finally {
+
+            session.close();
+
         }
         return objects;
     }

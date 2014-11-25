@@ -7,7 +7,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox prefHeight="537.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mystical.controller.Rodada.EditarRodadaController">
+<VBox prefHeight="537.0" prefWidth="640.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="mystical.controller.Rodada.EditarRodadaController">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -100,6 +100,14 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <ComboBox fx:id="horas" disable="true" layoutX="71.0" layoutY="453.0" prefHeight="25.0" prefWidth="64.0" promptText="hh" />
+            <Label layoutX="141.0" layoutY="452.0" text=":">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="minutos" disable="true" layoutX="152.0" layoutY="452.0" prefHeight="25.0" prefWidth="64.0" promptText="mm" />
+            <Label fx:id="falha" layoutX="71.0" layoutY="56.0" text="Por favor selecione uma rodada" textFill="#f8290e" visible="false" />
            
          </children>
       </Pane>

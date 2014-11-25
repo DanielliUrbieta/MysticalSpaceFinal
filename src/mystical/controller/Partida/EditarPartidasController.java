@@ -78,7 +78,7 @@ public class EditarPartidasController implements Initializable, ControlledScreen
         // rodadaBox.setItems(listRodada);
         listarCampeonatos();
         listarTipoResultado();
-
+        
     }
 
     public void listarCampeonatos() {

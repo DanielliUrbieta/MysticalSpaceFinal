@@ -41,6 +41,9 @@ public class AdicionarRodadaController implements Initializable, ControlledScree
     Label alertaCamposIncompletos;
     
     @FXML
+    Label alertaRodadaExistente;
+    
+    @FXML
     Label sucesso;
 
     @FXML
@@ -69,6 +72,7 @@ public class AdicionarRodadaController implements Initializable, ControlledScree
         alertaNumeroRodada.setText("*Por favor coloque um número válido");
         alertaCamposIncompletos.setVisible(false);
         alertaCamposIncompletos.setText("Por favor preencha todos os campos");
+        alertaRodadaExistente.setVisible(false);
         sucesso.setVisible(false);
         sucesso.setText("Rodada inserida com sucesso");
 
@@ -140,6 +144,7 @@ public class AdicionarRodadaController implements Initializable, ControlledScree
         minutos.getSelectionModel().clearSelection();
         alertaNumeroRodada.setVisible(false);
         alertaCamposIncompletos.setVisible(false);
+        alertaRodadaExistente.setVisible(false);
         sucesso.setVisible(false);
 
     }
@@ -155,6 +160,7 @@ public class AdicionarRodadaController implements Initializable, ControlledScree
             } else {
                 alertaNumeroRodada.setVisible(true);
                 alertaCamposIncompletos.setVisible(false);
+                alertaRodadaExistente.setVisible(false);
                 sucesso.setVisible(false);
                  System.out.println(" nao vale");
                 return false;
@@ -163,12 +169,15 @@ public class AdicionarRodadaController implements Initializable, ControlledScree
             System.err.println(ex);
             alertaNumeroRodada.setVisible(true);
             alertaCamposIncompletos.setVisible(false);
+            alertaRodadaExistente.setVisible(false);
             sucesso.setVisible(false);
             System.out.println("não eh numero");
             return false;
         }
 
     }
+    
+    
 
     @FXML
     public void salvarRodada(ActionEvent actionEvent) {
@@ -178,16 +187,26 @@ public class AdicionarRodadaController implements Initializable, ControlledScree
                     && horas.getValue() != null && !horas.getValue().toString().isEmpty()
                     && numeroRodada.getText() != null && !numeroRodada.getText().toString().isEmpty()
                     && minutos.getValue() != null && !minutos.getValue().toString().isEmpty()) {
-                Rodada novaRodada = new Rodada();
-                novaRodada.setNumero(Integer.parseInt(numeroRodada.getText()));
-                novaRodada.setCampeonato(campeonatoBox.getValue());
-                String duracao = horas.getValue() + ":" + minutos.getValue();
-                novaRodada.setTempo(duracao);
+                if(!rodadaDAO.contemRodada(campeonatoBox.getValue().getIdCampeonato(),
+                        Integer.parseInt(numeroRodada.getText()))){
+                    Rodada novaRodada = new Rodada();
+                    novaRodada.setNumero(Integer.parseInt(numeroRodada.getText()));
+                    novaRodada.setCampeonato(campeonatoBox.getValue());
+                    String duracao = horas.getValue() + ":" + minutos.getValue();
+                    novaRodada.setTempo(duracao);
 
-                rodadaDAO.save(novaRodada);
-                alertaCamposIncompletos.setVisible(false);
-                alertaNumeroRodada.setVisible(false);
-                sucesso.setVisible(true);
+                    rodadaDAO.save(novaRodada);
+                    alertaCamposIncompletos.setVisible(false);
+                    alertaNumeroRodada.setVisible(false);
+                    clear();
+                    sucesso.setVisible(true);
+                }
+                else{
+                 alertaRodadaExistente.setVisible(true);
+                 alertaCamposIncompletos.setVisible(false);
+                 sucesso.setVisible(false);
+                 alertaNumeroRodada.setVisible(false);
+                }
 
             } else {
                 alertaCamposIncompletos.setVisible(true);

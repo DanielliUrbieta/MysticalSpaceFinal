@@ -105,6 +105,7 @@
             <Label fx:id="alertaNumeroRodada" layoutX="407.0" layoutY="117.0" text="*Por favor coloque um número válido" textFill="#e42222" />
             <Label fx:id="sucesso" layoutX="87.0" layoutY="58.0" text="Rodada inserida com sucesso!" textFill="#0dab08" />
             <Label fx:id="alertaCamposIncompletos" layoutX="86.0" layoutY="58.0" text="Por favor preencha todos os campos" textFill="#bc1e1e" />
+            <Label fx:id="alertaRodadaExistente" layoutX="84.0" layoutY="58.0" text="Rodada já existente, entre com outro número" textFill="#d00b0b" />
          </children>
       </Pane>
   </children>

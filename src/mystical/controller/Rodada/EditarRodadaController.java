@@ -6,6 +6,7 @@
 package mystical.controller.Rodada;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,13 +31,13 @@ import mystical.model.Rodada;
  *
  * @author Danielli
  */
-public class EditarRodadaController implements Initializable , ControlledScreen{
-    
+public class EditarRodadaController implements Initializable, ControlledScreen {
+
     ScreensController myController;
     private final RodadaDAO rodadaDAO = new RodadaDAO();
     private final CampeonatoDAO campDAO = new CampeonatoDAO();
     ObservableList<Rodada> listRodada;
-   
+
     @FXML
     private TableView<Rodada> table;
     @FXML
@@ -52,13 +53,22 @@ public class EditarRodadaController implements Initializable , ControlledScreen{
     @FXML
     private ComboBox<String> minutos;
 
+    ObservableList<String> listHoras = FXCollections.observableArrayList("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12",
+            "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24");
+    ObservableList<String> listMinutos = FXCollections.observableArrayList("00", "15", "30", "45");
+    int idRodada;
+    Campeonato campeonatoPai;
+    int numeroRodada;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         listarCampeonatos();
-    }    
+        horas.setItems(listHoras);
+        minutos.setItems(listMinutos);
+    }
 
     @FXML
     private void goToAdicionarPartida(ActionEvent event) {
@@ -67,41 +77,37 @@ public class EditarRodadaController implements Initializable , ControlledScreen{
 
     @FXML
     private void goToEditarPartida(ActionEvent event) {
-         myController.setScreen(Main.editar);
+        myController.setScreen(Main.editar);
     }
 
     @FXML
     private void goToBuscarPartida(ActionEvent event) {
-         myController.setScreen(Main.listar);
+        myController.setScreen(Main.listar);
     }
-    
+
     @FXML
     private void goToExcluirPartida(ActionEvent event) {
-         myController.setScreen(Main.excluir);
+        myController.setScreen(Main.excluir);
     }
 
     @FXML
     private void goToBuscarRodada(ActionEvent event) {
-         myController.setScreen(Main.buscarRodada);
+        myController.setScreen(Main.buscarRodada);
     }
 
     @FXML
     private void goToExcluirRodada(ActionEvent event) {
-         myController.setScreen(Main.excluirRodada);
+        myController.setScreen(Main.excluirRodada);
     }
 
     @FXML
     private void goToAdicionarRodada(ActionEvent event) {
-         myController.setScreen(Main.adicionarRodada);
-    }
-
-    @FXML
-    private void salvarAction(ActionEvent event) {
+        myController.setScreen(Main.adicionarRodada);
     }
 
     @FXML
     private void comboBoxActionCampeonato(ActionEvent event) {
-         if (campeonatoBox.getValue() != null && !campeonatoBox.getValue().toString().isEmpty()) {
+        if (campeonatoBox.getValue() != null && !campeonatoBox.getValue().toString().isEmpty()) {
             listarRodadas();
         } else {
             System.out.println("Nao deu");
@@ -112,21 +118,30 @@ public class EditarRodadaController implements Initializable , ControlledScreen{
     private void tipoResultadoAction(ActionEvent event) {
     }
 
-   @Override
+    @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
-    
-     private void listarCampeonatos(){
+
+    private void listarCampeonatos() {
         ObservableList<Campeonato> listCampeonato = FXCollections.observableArrayList(campDAO.findAll());
         campeonatoBox.setItems(listCampeonato);
-     }
+    }
 
-      private void listarRodadas(){
-        if(campeonatoBox.getValue()!=null)
-        {
-            listRodada =  FXCollections.observableArrayList(rodadaDAO.findAllById(
-                campeonatoBox.getValue().getIdCampeonato()));
+    private void listarRodadas() {
+        atualizaTabela();
+    }
+
+    private void clear() {
+        campeonatoBox.getSelectionModel().clearSelection();
+        horas.getSelectionModel().clearSelection();
+        minutos.getSelectionModel().clearSelection();
+    }
+
+    private void atualizaTabela() {
+        if (campeonatoBox.getValue() != null) {
+            listRodada = FXCollections.observableArrayList(rodadaDAO.findAllById(
+                    campeonatoBox.getValue().getIdCampeonato()));
             table.setItems(listRodada);
             colun1.setCellValueFactory(new PropertyValueFactory<Rodada, String>("numero"));
             colun2.setCellValueFactory(new PropertyValueFactory<Rodada, String>("tempo"));
@@ -137,15 +152,44 @@ public class EditarRodadaController implements Initializable , ControlledScreen{
                     falha.setVisible(false);
                     horas.setDisable(false);
                     minutos.setDisable(false);
-                    horas.getSelectionModel().select(newValue.getTempo());
-                    minutos.getSelectionModel().select(newValue.getTempo());
-                    int id = newValue.getIdRodada();
-                    Campeonato CampeonatoPai = newValue.getCampeonato();
+
+                    horas.getSelectionModel().select(newValue.getTempo().substring(0, 2));
+                    minutos.getSelectionModel().select(newValue.getTempo().substring(3, 5));
+                    numeroRodada = newValue.getNumero();
+                    idRodada = newValue.getIdRodada();
+                    campeonatoPai = newValue.getCampeonato();
                 }
 
             });
-        }
-        else 
+        } else {
             listRodada.clear();
+        }
+
     }
+
+    @FXML
+    private void salvarAction(ActionEvent actionEvent) {
+
+        if (horas.getValue() == null) {
+            falha.setVisible(true);
+            falha.setText("Por favor, selecione uma partida e preencha todos os campos abaixo");
+
+        } else {
+            
+            Rodada novoObj = new Rodada();
+            novoObj.setIdRodada(idRodada);
+            String duracao = horas.getValue() + ":" + minutos.getValue();
+            novoObj.setTempo(duracao);
+            novoObj.setCampeonato(campeonatoPai);
+            novoObj.setNumero(numeroRodada);
+            rodadaDAO.update(novoObj);
+            atualizaTabela();
+            clear();
+            System.out.println("Mensagem de Sucesso");
+            falha.setVisible(false);
+
+        }
+
+    }
+
 }

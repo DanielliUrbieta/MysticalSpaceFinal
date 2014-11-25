@@ -75,4 +75,15 @@ public class RodadaDAO extends AbstractDAO {
         String query = "from "+Rodada.class.getName()+" where campeonato_id_campeonato = "+id;
         return super.findAllById(id, query);
     }
+    
+    public boolean contemRodada(int idCampeonato, int numeroRodada){
+        String idC = String.valueOf(idCampeonato);
+        String idR = String.valueOf(numeroRodada);
+        String consulta = "select count(*) from rodada where campeonato_id_campeonato = "+ idC +" and numero = " + idR;
+       
+       if(Integer.parseInt(super.consultaGenerica(consulta).toString().substring(8, 9))==1)
+           return true;
+       else
+           return false;
+    }
 }
